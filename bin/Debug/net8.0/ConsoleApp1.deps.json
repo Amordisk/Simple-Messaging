@@ -1,0 +1,57 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "ConsoleApp1/1.0.0": {
+        "dependencies": {
+          "Fasm.NET": "1.70.3.2",
+          "Process.NET": "1.0.8"
+        },
+        "runtime": {
+          "ConsoleApp1.dll": {}
+        }
+      },
+      "Fasm.NET/1.70.3.2": {
+        "runtime": {
+          "lib/Fasm.NET.dll": {
+            "assemblyVersion": "1.0.4939.27955",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "Process.NET/1.0.8": {
+        "runtime": {
+          "lib/Process.NET.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ConsoleApp1/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Fasm.NET/1.70.3.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-m5lNSb/wPeWvJPjSlDqeljzzgRY8dJvl0wZaJt451lmFNlkSPX1O4ckHuepD0eNPQEiWJoGlaWZOjGuHOCEksg==",
+      "path": "fasm.net/1.70.3.2",
+      "hashPath": "fasm.net.1.70.3.2.nupkg.sha512"
+    },
+    "Process.NET/1.0.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8Sbh8V5E59MrXGA+8F9GJAAy8XY75kPRhyPhwD0WBD8gClZqO79dqZI0pFQ46Fq5WHlUHr5d5DLUaAHILvgbrA==",
+      "path": "process.net/1.0.8",
+      "hashPath": "process.net.1.0.8.nupkg.sha512"
+    }
+  }
+}
