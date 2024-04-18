@@ -1,17 +1,21 @@
-﻿using System.Net;
+﻿using System.Linq.Expressions;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using SimpleMessager;
 
-IPAddress ipAddress;
+IPAddress? ipAddress;
 string ipInput;
 int port;
 string portInput;
 string hostOrClient;
+string username;
 
 Console.WriteLine("Initiate as a Host or Client: ");
 hostOrClient = Console.ReadLine();
-
+Console.WriteLine("Username: ");
+username = Console.ReadLine();
 do
 {
     Console.Write("Please enter a valid IP-address: ");
@@ -41,7 +45,7 @@ if (hostOrClient == "Client")
 }
 else if (hostOrClient == "Host")
 {
-    var listener = new TcpListener(ipEndPoint);
+    TcpListener listener = new(ipEndPoint);
     
 
     try
@@ -66,10 +70,10 @@ void sendMessage(TcpClient sidedness)
     using NetworkStream stream = sidedness.GetStream();
     while(true)
     {
+        var timeSent = DateTime.Now.ToShortTimeString();
         var message = Console.ReadLine();
         var messageBytes = Encoding.UTF8.GetBytes(message);
         stream.Write(messageBytes);
-        //Console.WriteLine($"<| {message}");
     }
 }
 void receiveMessage(TcpClient sidedness)

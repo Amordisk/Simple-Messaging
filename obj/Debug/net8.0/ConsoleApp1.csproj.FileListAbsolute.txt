@@ -16,3 +16,4 @@
 /home/disk_/c#/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.pdb
 /home/disk_/c#/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.genruntimeconfig.cache
 /home/disk_/c#/ConsoleApp1/obj/Debug/net8.0/ref/ConsoleApp1.dll
+/home/disk_/c#/ConsoleApp1/obj/Debug/net8.0/ConsoleApp1.sourcelink.json
