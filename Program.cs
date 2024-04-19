@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using SimpleMessager;
 
@@ -40,7 +41,7 @@ if (hostOrClient == "Client")
 
     sendThread.Start();
     receiveThread.Start();
-    sendUserMessage(client);
+    //sendUserMessage(client);
 
 }
 else if (hostOrClient == "Host")
