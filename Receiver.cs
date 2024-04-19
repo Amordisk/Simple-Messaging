@@ -6,20 +6,21 @@ namespace SimpleMessager;
 public class Receiver
 {
        private TcpClient sidedness { get; set; }
+       private NetworkStream stream { get; set; }
 
     public Receiver(TcpClient sidedness)
     {
         this.sidedness = sidedness;
+        stream = sidedness.GetStream();
     }
 
-    void receiveMessageConsole(TcpClient sidedness)
+    public void receiveMessageConsole()
     {
-        string message = receiveMessageBackground(sidedness);
+        string message = receiveMessageBackground();
         Console.WriteLine($">| {message}");
     }
-    public string receiveMessageBackground(TcpClient sidedness)
+    public string receiveMessageBackground()
     {
-        NetworkStream stream = sidedness.GetStream();
         var buffer = new byte[1024];
         int received = stream.Read(buffer);
         var message = Encoding.UTF8.GetString(buffer, 0, received);

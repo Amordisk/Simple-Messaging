@@ -35,12 +35,12 @@ if (hostOrClient == "Client")
     TcpClient client = new();
     client.Connect(ipEndPoint);
 
-    var sendThread = new Thread(() => sendMessage(client));
-    var receiveThread = new Thread(() => receiveMessage(client));
+    var sendThread = new Thread(() => sendUserMessage(client));
+    var receiveThread = new Thread(() => receiveUserMessage(client));
 
     sendThread.Start();
     receiveThread.Start();
-    sendMessage(client);
+    sendUserMessage(client);
 
 }
 else if (hostOrClient == "Host")
@@ -54,8 +54,8 @@ else if (hostOrClient == "Host")
 
         TcpClient handler = listener.AcceptTcpClient();
   
-        var sendThread = new Thread(() => sendMessage(handler));
-        var receiveThread = new Thread(() => receiveMessage(handler));
+        var sendThread = new Thread(() => sendUserMessage(handler));
+        var receiveThread = new Thread(() => receiveUserMessage(handler));
 
         sendThread.Start();
         receiveThread.Start();
@@ -65,25 +65,19 @@ else if (hostOrClient == "Host")
         listener.Stop();
     }
 }
-void sendMessage(TcpClient sidedness)
+void sendUserMessage(TcpClient sidedness)
 {
-    using NetworkStream stream = sidedness.GetStream();
+    var sender = new Sender(sidedness);
     while(true)
     {
-        var timeSent = DateTime.Now.ToShortTimeString();
-        var message = Console.ReadLine();
-        var messageBytes = Encoding.UTF8.GetBytes(message);
-        stream.Write(messageBytes);
+        sender.sendMessageConsole();
     }
 }
-void receiveMessage(TcpClient sidedness)
+void receiveUserMessage(TcpClient sidedness)
 {
-    using NetworkStream stream = sidedness.GetStream();
+    var receiver = new Receiver(sidedness);
     while(true)
     {
-        var buffer = new byte[1024];
-        int received = stream.Read(buffer);
-        var message = Encoding.UTF8.GetString(buffer, 0, received);
-        Console.WriteLine($">| {message}");
+        receiver.receiveMessageConsole();
     }
 }

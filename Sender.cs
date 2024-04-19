@@ -6,20 +6,21 @@ namespace SimpleMessager;
 public class Sender
 {
     private TcpClient sidedness { get; set; }
+    private NetworkStream stream { get; set; }
 
     public Sender(TcpClient sidedness)
     {
         this.sidedness = sidedness;
+        stream = sidedness.GetStream();
     }
 
-    void sendMessageConsole(TcpClient sidedness)
+    public void sendMessageConsole()
     {
         var message = Console.ReadLine();
-        sendMessageBackground(sidedness, message);
+        sendMessageBackground(message);
     }
-    void sendMessageBackground(TcpClient sidedness, String message)
+    public void sendMessageBackground(String message)
     {
-        NetworkStream stream = sidedness.GetStream();
         var messageBytes = Encoding.UTF8.GetBytes(message);
         stream.Write(messageBytes);
     }
