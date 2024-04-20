@@ -14,10 +14,11 @@ public class Receiver
         stream = sidedness.GetStream();
     }
 
+    
     public void receiveMessageConsole()
     {
         string message = receiveMessageBackground();
-        Console.WriteLine($">| {message}");
+        Console.WriteLine(message);
     }
     public string receiveMessageBackground()
     {

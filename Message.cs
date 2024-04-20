@@ -7,7 +7,8 @@ public enum messageType
     UserMessage,
     KeepAlive,
     ServerMessage,
-    Handshake
+    Handshake,
+    Keys
 }
 
 public class Message

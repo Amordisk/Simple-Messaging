@@ -7,20 +7,22 @@ using System.Threading;
 using SimpleMessager;
 
 IPAddress? ipAddress;
-string ipInput;
+string? ipInput;
 int port;
 string portInput;
-string hostOrClient;
-string username;
+string? hostOrClient;
+string? username;
 
 Console.WriteLine("Initiate as a Host or Client: ");
 hostOrClient = Console.ReadLine();
+if (string.IsNullOrEmpty(hostOrClient)) hostOrClient = "Host";
 Console.WriteLine("Username: ");
 username = Console.ReadLine();
 do
 {
     Console.Write("Please enter a valid IP-address: ");
     ipInput = Console.ReadLine();
+    if (string.IsNullOrEmpty(ipInput)) ipInput = "127.0.0.1";
 }while(!IPAddress.TryParse(ipInput, out ipAddress));
 do
 {
@@ -68,7 +70,7 @@ else if (hostOrClient == "Host")
 }
 void sendUserMessage(TcpClient sidedness)
 {
-    var sender = new Sender(sidedness);
+    var sender = new Sender(sidedness, username);
     while(true)
     {
         sender.sendMessageConsole();
