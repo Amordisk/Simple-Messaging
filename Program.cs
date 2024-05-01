@@ -9,7 +9,7 @@ using SimpleMessager;
 IPAddress? ipAddress;
 string? ipInput;
 int port;
-string portInput;
+string? portInput;
 string? hostOrClient;
 string? username;
 
@@ -18,6 +18,7 @@ hostOrClient = Console.ReadLine();
 if (string.IsNullOrEmpty(hostOrClient)) hostOrClient = "Host";
 Console.WriteLine("Username: ");
 username = Console.ReadLine();
+if (string.IsNullOrEmpty(username)) username = "Anonymous";
 do
 {
     Console.Write("Please enter a valid IP-address: ");
@@ -28,6 +29,7 @@ do
 {
     Console.WriteLine("Please enter a valid port: ");
     portInput = Console.ReadLine();
+    if (string.IsNullOrEmpty(portInput)) portInput = "5001";
 }while(!(int.TryParse(portInput, out port)&& port > 0 && port < 65535));
 
 var ipEndPoint = new IPEndPoint(ipAddress, port);
@@ -39,11 +41,10 @@ if (hostOrClient == "Client")
     client.Connect(ipEndPoint);
 
     var sendThread = new Thread(() => sendUserMessage(client));
-    var receiveThread = new Thread(() => receiveUserMessage(client));
+    var receiveThread = new Thread(() => receiveMessage(client));
 
     sendThread.Start();
     receiveThread.Start();
-    //sendUserMessage(client);
 
 }
 else if (hostOrClient == "Host")
@@ -58,7 +59,7 @@ else if (hostOrClient == "Host")
         TcpClient handler = listener.AcceptTcpClient();
   
         var sendThread = new Thread(() => sendUserMessage(handler));
-        var receiveThread = new Thread(() => receiveUserMessage(handler));
+        var receiveThread = new Thread(() => receiveMessage(handler));
 
         sendThread.Start();
         receiveThread.Start();
@@ -76,11 +77,14 @@ void sendUserMessage(TcpClient sidedness)
         sender.sendMessageConsole();
     }
 }
-void receiveUserMessage(TcpClient sidedness)
+void receiveMessage(TcpClient sidedness)
 {
     var receiver = new Receiver(sidedness);
     while(true)
     {
-        receiver.receiveMessageConsole();
+        string message = receiver.receiveMessageBackground();
+        var messageobject = new Message(message, username, MessageType.UserMessage);
+        var MessageHandler = new MessageHandler(messageobject);
+        MessageHandler.messageSorter();
     }
 }

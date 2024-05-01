@@ -16,6 +16,13 @@ public class Sender
         this.username = username;
     }
 
+    public void sendKeepAlive()
+    {
+        string message = "/:keepalive:/";
+        var messageobject = new Message(message, username, MessageType.KeepAlive);
+        //serialize object to string here
+        sendMessageBackground(message);
+    }
     public void sendMessageConsole()
     {
         var time = DateTime.Now.ToShortTimeString();
